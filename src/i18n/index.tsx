@@ -35,6 +35,16 @@ const translations: Record<Locale, TranslationValue> = {
       current: "当前",
       scrollCategories: "滚动信息源类目",
     },
+    globalSearch: {
+      trigger: "全局搜索",
+      placeholder: "搜索标题、原文和摘要...",
+      emptyQueryTitle: "输入关键词开始搜索",
+      noResultsTitle: "没有找到结果",
+      noResultsDescription: "换个关键词试试，或者等待下次数据更新。",
+      matchedTitle: "标题匹配",
+      matchedSummary: "摘要匹配",
+      matchedOriginal: "原文匹配",
+    },
     feed: {
       emptyData: "数据为空，可能是由于该RSS源不稳定🫠",
       fetchError: "数据获取失败，请检查数据源是否出错🫠",
@@ -72,6 +82,16 @@ const translations: Record<Locale, TranslationValue> = {
       all: "All",
       current: "Current",
       scrollCategories: "Scroll source categories",
+    },
+    globalSearch: {
+      trigger: "Global search",
+      placeholder: "Search titles, originals, and summaries...",
+      emptyQueryTitle: "Type keywords to search",
+      noResultsTitle: "No results found",
+      noResultsDescription: "Try another keyword, or wait for the next data update.",
+      matchedTitle: "Title match",
+      matchedSummary: "Summary match",
+      matchedOriginal: "Original match",
     },
     feed: {
       emptyData: "No data found. This RSS source may be unstable 🫠",

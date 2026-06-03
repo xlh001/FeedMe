@@ -88,7 +88,61 @@ body {
 
 @layer components {
   .feed-card {
-    @apply border border-border bg-card shadow-sm hover:shadow-md transition-all duration-300 relative;
+    @apply border border-border bg-card shadow-sm transition-all duration-300 relative;
+    --feed-card-hover-border: hsl(var(--primary) / 0.1);
+    --feed-card-hover-line: hsl(var(--primary) / 0.18);
+    --feed-card-hover-shadow:
+      0 6px 16px hsl(221 35% 32% / 0.06),
+      0 1px 4px hsl(221 35% 32% / 0.04);
+    --feed-card-selected-border: hsl(var(--primary) / 0.16);
+    --feed-card-selected-line: hsl(var(--primary) / 0.34);
+    --feed-card-selected-shadow:
+      0 8px 20px hsl(221 35% 32% / 0.08),
+      0 2px 6px hsl(221 35% 32% / 0.05);
+    transition:
+      background-color 300ms ease,
+      border-color 300ms ease,
+      box-shadow 300ms ease,
+      transform 300ms ease;
+  }
+
+  .feed-card:hover {
+    border-color: var(--feed-card-hover-border);
+    box-shadow: var(--feed-card-hover-shadow);
+    transform: translateY(-1px);
+  }
+
+  .feed-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    border-radius: 999px;
+    background: var(--feed-card-selected-line);
+    opacity: 0;
+    transform: scaleY(0.72);
+    transform-origin: center;
+    transition:
+      opacity 220ms ease,
+      transform 300ms ease;
+  }
+
+  .feed-card-selected::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .feed-card:hover::before {
+    background: var(--feed-card-hover-line);
+    opacity: 0.72;
+    transform: scaleY(1);
+  }
+
+  .feed-card-selected:hover::before {
+    background: var(--feed-card-selected-line);
+    opacity: 1;
   }
 
   .source-scroll {
@@ -153,18 +207,34 @@ body {
     background: hsl(var(--muted-foreground) / 0.64);
   }
 
+  .search-highlight {
+    @apply rounded-sm px-0.5 py-0 text-foreground;
+    background: hsl(var(--primary) / 0.16);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.2);
+  }
+
+  .dark .search-highlight {
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary) / 0.72);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.34);
+  }
+
   .dark .feed-card {
     @apply bg-card border-border;
+    --feed-card-hover-border: hsl(var(--primary) / 0.14);
+    --feed-card-hover-line: hsl(var(--primary) / 0.16);
+    --feed-card-hover-shadow:
+      0 1px 0 hsl(0 0% 100% / 0.035),
+      0 12px 30px hsl(225 40% 3% / 0.34),
+      0 0 0 1px hsl(var(--primary) / 0.035);
+    --feed-card-selected-border: hsl(var(--primary) / 0.18);
+    --feed-card-selected-line: hsl(var(--primary) / 0.32);
+    --feed-card-selected-shadow:
+      0 1px 0 hsl(0 0% 100% / 0.045),
+      0 14px 34px hsl(225 40% 3% / 0.42),
+      0 0 0 1px hsl(var(--primary) / 0.05);
     box-shadow:
       0 1px 0 hsl(0 0% 100% / 0.03),
       0 10px 28px hsl(225 35% 4% / 0.28);
-  }
-
-  .dark .feed-card:hover {
-    border-color: hsl(var(--primary) / 0.34);
-    box-shadow:
-      0 1px 0 hsl(0 0% 100% / 0.045),
-      0 18px 48px hsl(225 40% 3% / 0.48),
-      0 0 0 1px hsl(var(--primary) / 0.12);
   }
 }

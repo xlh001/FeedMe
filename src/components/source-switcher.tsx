@@ -1,20 +1,20 @@
 "use client"
 
-import { useRouter, useSearchParams } from "@/hooks/use-navigation"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useCallback, useLayoutEffect, useRef, useState } from "react"
-import { defaultSource, findSourceByUrl, getSourceName, getSourcesByCategory, type RssSource } from "@/config/rss-config"
+import { findSourceByUrl, getSourceName, getSourcesByCategory, type RssSource } from "@/config/rss-config"
 import { useI18n } from "@/i18n"
 
-export function SourceSwitcher() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const currentSource = searchParams.get("source")
-  const selectedSourceUrl = currentSource || defaultSource.url
+interface SourceSwitcherProps {
+  selectedSourceUrl: string
+  onSelectSource: (sourceUrl: string) => void
+}
+
+export function SourceSwitcher({ selectedSourceUrl, onSelectSource }: SourceSwitcherProps) {
   const { locale, t } = useI18n()
 
   const [open, setOpen] = useState(false)
@@ -85,12 +85,7 @@ export function SourceSwitcher() {
   )
 
   const handleSelect = (source: RssSource) => {
-    const params = new URLSearchParams(searchParams)
-    params.set("source", source.url)
-    params.set("lang", locale)
-    // 使用当前页面路径，保留 basePath
-    const currentPath = window.location.pathname
-    router.push(`${currentPath}?${params.toString()}`)
+    onSelectSource(source.url)
     handleOpenChange(false)
   }
 
